@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Member\ProductController as MemberProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrder;
 use App\Http\Controllers\Member\OrderController as MemberOrder;
-
+use App\Http\Controllers\Member\DailySaleController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -26,5 +26,7 @@ Route::middleware('role:admin')->prefix('admin')->group(function () {
         Route::post('/products', [MemberProductController::class, 'store']);
         Route::patch('/orders/{id}/accept', [MemberOrder::class, 'accept']);
         Route::patch('/orders/{id}/input-receipt', [MemberOrder::class, 'inputReceipt']);
+        Route::post('/daily-sales', [DailySaleController::class, 'store']);
+        Route::get('/daily-sales/summary', [DailySaleController::class, 'index']);
         // Tambahkan put, delete, dll nanti
-});
+    });
