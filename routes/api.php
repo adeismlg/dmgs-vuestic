@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Member\ProductController as MemberProductController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -17,6 +18,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     // Jalur khusus Admin di sini
 });
 
-Route::middleware(['auth:sanctum', 'role:member'])->group(function () {
-    // Jalur khusus Member di sini
+ Route::middleware('role:member')->prefix('member')->group(function () {
+        Route::post('/products', [MemberProductController::class, 'store']);
+        // Tambahkan put, delete, dll nanti
 });
