@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            // Role dibagi menjadi 3: admin, member (UMKM), dan customer (pelanggan)
+            $table->enum('role', ['admin', 'member', 'customer'])->default('customer');
             $table->timestamps();
         });
 
